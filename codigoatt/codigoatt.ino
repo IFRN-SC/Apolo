@@ -212,7 +212,7 @@ void initSeguirLinha() {
     } else if(sensores[0] > valorCorte[0] && sensores[3] > valorCorte[3]) {        
         robo.acionarMotores(33,30);
     } else if (sensores[1] < valorCorte[1] && sensores[2] < valorCorte[2]) {
-        robo.acionarMotores(35,30);
+        robo.acionarMotores(33,30);
     }
 }
 
