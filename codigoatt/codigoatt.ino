@@ -3,9 +3,9 @@
 #include <main.h>
 
 float delayOneEsq = 605; // Tempo que o robô leva para iniciar o giro
-float delayTwoEsq = 420; // Tempo que o robô passa girando
+float delayTwoEsq = 440; // Tempo que o robô passa girando
 float delayOneDir = 490;
-float delayTwoDir = 440;
+float delayTwoDir = 465;
 
 int pinMaisEsq = 3;
 int pinEsq = 2;
@@ -80,7 +80,7 @@ void loop() {
         if ((robo.lerSensorSonarEsq() < 10) && (robo.lerSensorSonarDir() < 10)) {
             initRampa();
         } else if (robo.lerSensorSonarFrontal() < 10) {
-//            desviarObstaculo();
+           desviarObstaculo();
         } else {
             initSeguirLinha();
         }
@@ -190,25 +190,25 @@ void initSeguirLinha() {
     if (sensores[0] > valorCorte[0] && sensores[1] > valorCorte[1] && sensores[2] < valorCorte[2] && sensores[3] < valorCorte[3]) { // PPBB        
         // ====CURVA À ESQUERDA====
         delay(delayOneEsq);
-        robo.acionarMotores(15,-15);
+        robo.acionarMotores(30,-30);
         delay(delayTwoEsq);
     } else if (sensores[0] < valorCorte[0] && sensores[1] < valorCorte[1] && sensores[2] > valorCorte[2] && sensores[3] > valorCorte[3]) { // BBPP        
         // ====CURVA À DIREITA====
         delay(delayOneDir);
-        robo.acionarMotores(-25,25);    
+        robo.acionarMotores(-30,30);    
         delay(delayTwoDir);
     } else if (sensores[2] < valorCorte[2] && sensores[1] > valorCorte[1]){ // DIR = branco e ESQ = preto        
         // ====CURVA À ESQUERDA===="
-        robo.acionarMotores(-25,25); // Curva à esquerda        
+        robo.acionarMotores(-35,35); // Curva à esquerda        
     } else if (sensores[2] > valorCorte[2] && sensores[1] < valorCorte[1]){ // DIR = preto e ESQ = branco            
         // ====CURVA À DIREITA====
-        robo.acionarMotores(25,-25); // Curva à direita
+        robo.acionarMotores(35,-35); // Curva à direita
     } else if (sensores[3] > valorCorte[3] && sensores[0] < valorCorte[0]) { // +DIR = preto ou +ESQ = branco        
         // ====CURVA À ESQUERDA====
-        robo.acionarMotores(25,-25);        
+        robo.acionarMotores(35,-35);        
     } else if (sensores[3] < valorCorte[3] && sensores[0] > valorCorte[0]) { // +DIR = branco e +ESQ = preto                
         Serial.println("====CURVA À DIREITA====");
-        robo.acionarMotores(-25,25);                
+        robo.acionarMotores(-35,35);                
     } else if(sensores[0] > valorCorte[0] && sensores[3] > valorCorte[3]) {        
         robo.acionarMotores(33,30);
     } else if (sensores[1] < valorCorte[1] && sensores[2] < valorCorte[2]) {
@@ -227,10 +227,10 @@ void initRampa() {
     sensores[3] = (analogRead(3)/1023.0)*100.0;
     
     if (sensores[2] < valorCorte[2] && sensores[1] > valorCorte[1]){ // DIR = branco e ESQ = preto
-        robo.acionarMotores(35,0); // Curva à esquerda
+        robo.acionarMotores(30,0); // Curva à esquerda
         delay(delayCurva);
     } else if (sensores[2] > valorCorte[2] && sensores[1] < valorCorte[1]){ // DIR = preto e ESQ = branco    
-        robo.acionarMotores(0,35); // Curva à direita
+        robo.acionarMotores(0,30); // Curva à direita
         delay(delayCurva);
     } else if (sensores[3] > valorCorte[3] && sensores[0] < valorCorte[0]) { // +DIR = preto ou +ESQ = branco
         robo.acionarMotores(0,40);
@@ -239,30 +239,35 @@ void initRampa() {
         robo.acionarMotores(40,0);
         delay(delay90);    
     } else {
-        robo.acionarMotores(50,50);
+        robo.acionarMotores(53,50);
     }
 }
 
 void desviarObstaculo() {
     robo.acionarMotores(-10,-10);
     delay(1000); 
-    robo.acionarMotores(-30,40); // Gira para a direita
+    robo.acionarMotores(-35,40); // Gira para a direita
     delay(350);
     robo.acionarMotores(0,0);
     delay(1000);
-    robo.acionarMotores(30,40); // Vai para frente
+    robo.acionarMotores(40,35); // Vai para frente
     delay(600); 
     robo.acionarMotores(0,0);
     delay(1000);
-    robo.acionarMotores(30,-40); // Gira a esquerda
+    robo.acionarMotores(40,-45); // Gira a esquerda
     delay(300);    
     robo.acionarMotores(0,0);
     delay(1000);
-    robo.acionarMotores(30,40); // Vai pra frente
+    robo.acionarMotores(40,35); // Vai pra frente
     delay(900);
     robo.acionarMotores(0,0);
     delay(1000);
-    robo.acionarMotores(30,-40); // Gira para esquerda
+    robo.acionarMotores(40,-35); // Gira para esquerda
     delay(400);
-    robo.acionarMotores(0,0);    
+    robo.acionarMotores(40,40); 
+   delay(400);
+    robo.acionarMotores(-10,10);
+    delay(480);
+    robo.acionarMotores(0,0); 
+    delay(3000);  
 }
