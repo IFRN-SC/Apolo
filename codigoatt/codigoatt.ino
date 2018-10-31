@@ -32,7 +32,7 @@ void loop() {
         calibrarBranco();
         delay(5000);
         calibrarPreto();
-        for (int i=0; i<4; i++) {
+        for (int i=0; i<4; i++) { 
             valorCorte[i] = (valorBranco[i] + valorPreto[i])/2;      
         }
         val.refletanciaMaisEsq = valorCorte[0];
