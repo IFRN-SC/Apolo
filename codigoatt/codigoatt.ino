@@ -4,7 +4,7 @@
 
 float delayOneEsq = 605; // Tempo que o robô leva para iniciar o giro
 float delayTwoEsq = 440; // Tempo que o robô passa girando
-float delayOneDir = 490;
+float delayOneDir = 440;
 float delayTwoDir = 465;
 
 float verde[2] = {0, 0};
@@ -174,6 +174,15 @@ void initSeguirLinha() {
         delay(delayOneEsq);
         robo.acionarMotores(30,-30);
         delay(delayTwoEsq);
+    } else if(sensores[0] < valorCorte[0] && sensores[1] < valorCorte[1] && sensores[2] < valorCorte[2] && sensores[3] < valorCorte[3]) {//BBBB
+        //======RETA========
+        robo.acionarMotores(30,30);
+     } else if(sensores[0] < valorCorte[0] && sensores[1] > valorCorte[1] && sensores[2] < valorCorte[2] && sensores[3] < valorCorte[3]) {//BPBB
+        //======INDIREITAR ROBO A ESQUERDA========
+        robo.acionarMotores(0,-5);
+    } else if(sensores[0] < valorCorte[0] && sensores[1] < valorCorte[1] && sensores[2] > valorCorte[2] && sensores[3] < valorCorte[3]) {//BPBB
+        //======INDIREITAR ROBO A DIREITA========
+        robo.acionarMotores(-5,0);
     } else if (sensores[0] < valorCorte[0] && sensores[1] < valorCorte[1] && sensores[2] > valorCorte[2] && sensores[3] > valorCorte[3]) { // BBPP        
         // ====CURVA À DIREITA====
         delay(delayOneDir);
